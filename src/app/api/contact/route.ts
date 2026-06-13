@@ -3,7 +3,11 @@ import { Resend } from 'resend';
 import fs from 'fs';
 import path from 'path';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResendClient() {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return null;
+  return new Resend(key);
+}
 
 function readLogoB64(filename: string): string {
   try {
@@ -174,6 +178,11 @@ export async function POST(req: NextRequest) {
 
     if (!name || !email || !message) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+    }
+
+    const resend = getResendClient();
+    if (!resend) {
+      return NextResponse.json({ error: 'Missing RESEND_API_KEY' }, { status: 500 });
     }
 
     const { error } = await resend.emails.send({
