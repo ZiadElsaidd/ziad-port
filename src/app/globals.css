@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* ── Satoshi Variable ─────────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Variable.woff2') format('woff2');
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-VariableItalic.woff2') format('woff2');
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: italic;
+}
+
+/* ── Tailwind v4 theme ────────────────────────────────────────────────────── */
+@theme inline {
+  --font-sans:  'Satoshi', system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-instrument), Georgia, serif;
+  --font-mono:  ui-monospace, 'JetBrains Mono', monospace;
+
+  --color-ink:       #0A0A0A;
+  --color-ink-60:    rgba(10,10,10,0.60);
+  --color-ink-40:    rgba(10,10,10,0.40);
+  --color-ink-20:    rgba(10,10,10,0.20);
+  --color-ink-10:    rgba(10,10,10,0.10);
+  --color-canvas:    #FFFFFF;
+  --color-off:       #F5F5F3;
+  --color-dark:      #0A0A0A;
+  --color-on-dark:   #FFFFFF;
+}
+
+/* ── Custom cursor — hide native on pointer:fine desktop ─────────────────── */
+@media (pointer: fine) and (min-width: 768px) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+html.lenis        { height: auto; }
+html.lenis body   { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+
+body {
+  font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
+  background: #FFFFFF;
+  color: #0A0A0A;
+  overflow-x: hidden;
+}
+
+/* ── Selection ────────────────────────────────────────────────────────────── */
+::selection      { background: #0A0A0A; color: #FFFFFF; }
+::-moz-selection { background: #0A0A0A; color: #FFFFFF; }
+
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 2px; }
+::-webkit-scrollbar-track { background: #FFFFFF; }
+::-webkit-scrollbar-thumb { background: rgba(10,10,10,0.15); border-radius: 2px; }
+
+/* ── Projects: mobile cube + card centering ───────────────────────────────── */
+.projects-cube-scene {
+  transition: padding-top 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (max-width: 767px) {
+  .projects-cube-scene.scene-active {
+    padding-top: clamp(5.5rem, 15vw, 7rem);
+  }
+}

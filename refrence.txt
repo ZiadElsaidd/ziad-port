@@ -1,0 +1,209 @@
+<!-- PRE-LOADER -->
+<div class="overlay">
+    <div class="layer layer-1"></div>
+    <div class="layer layer-2"></div>
+    <div class="layer layer-3"></div>
+    <div class="layer layer-4"></div>
+    <div class="layer layer-5"></div>    
+</div>
+<div class="count"></div>
+
+<!-- NAVBAR -->
+<div class="nav">
+    <div class="nav__logo">
+      This Is <br> A logo
+    </div>
+    <button class="nav__btn">
+      <p>Menu</p>
+    </button>
+</div>
+
+<!-- CONTENT -->
+<section>
+      <div class="hero">
+          <div class="hero__text">
+            <li><a href="#about"></a></li>
+            <h1 class="hero__title">Creativity</h1>
+          </div>
+      </div>  
+</section>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: 'Poppins';
+}
+
+li, a, button {
+  border: none;
+  outline: none;
+  color: inherit;
+  list-style: none;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.overlay {
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 900;
+  height: 100vh;
+  display: flex;
+  position: fixed;
+}
+
+.layer {
+  background-color: #000;
+}
+
+.layer-1 {flex: 1;}
+.layer-2 {flex: 1;}
+.layer-3 {flex: 1;}
+.layer-4 {flex: 1;}
+.layer-5 {flex: 1;}
+
+.count {
+  right: .5%;
+  bottom: .5%;
+  z-index: 999;
+  width: 550px;
+  color: #fff;
+  font-size: 5rem;
+  position: fixed;
+  font-weight: 800;
+  text-align: right;
+}
+
+.nav {
+  width: 100%;
+  z-index: 800;
+  height: 100px;
+  display: flex;
+  padding: 0 5%;
+  position: fixed;
+  user-select: none;
+  align-items: center;
+  mix-blend-mode: difference;
+  justify-content: space-between;
+}
+
+.nav__logo {
+  color: #fff;
+  line-height: 90%;
+  font-size: 1.3rem;
+  font-weight: lighter;
+  text-transform: uppercase;
+}
+
+.nav__btn {
+  width: 10%;
+  height: 100%;
+  font-size: 1.2rem;
+}
+
+.nav__btn p {
+  color: #fff;
+  cursor: pointer;
+  font-weight: lighter;
+  text-transform: uppercase;
+}
+
+.nav__btn p::after {
+  width: 0%;
+  content: '';
+  height: 3px;
+  bottom: 50px;
+  display: block;
+  transition: .3s;
+  margin-left: 26px;
+  position: absolute;
+  background-color: #fff;
+}
+
+.nav__btn p:hover::after {
+  width: 5%;
+}
+
+section {
+  width: 100%;
+  position: relative;
+}
+
+section .hero {
+  width: 100%;
+  height: 100vh;
+}
+
+section .hero__text {
+  width: 100%;
+  height: 100%;
+  padding: 0 5%;
+  color: #000;
+  overflow: hidden;
+  position: relative;
+}
+
+section .hero__text h1 {
+  z-index: 1;
+  left: 50%;
+  bottom: -10%;
+  font-size: 14rem;
+  position: absolute;
+  text-transform: uppercase;
+  transform: translate(-50%);
+}
+
+section .hero__text p {
+  position: absolute;
+  font-size: 1.5rem;
+  font-family: 'Montreal';
+}
+
+
+//PRELOADER
+//DONE WITH GSAP
+gsap.to('.count', {y: '-100vh', delay: 6.5})
+gsap.to('.layer-1', {y: '-100vh', delay: 5.7})
+gsap.to('.layer-2', {y: '-100vh', delay: 5.9})
+gsap.to('.layer-3', {y: '-100vh', delay: 6.1})
+gsap.to('.layer-4', {y: '-100vh', delay: 6.3})
+gsap.to('.layer-5', {y: '-100vh', delay: 6.5})
+gsap.to('.overlay', {y: '-100vh', delay: 7.1})
+
+//TEXT REVEAL
+//ALSO DONE WITH GSAP
+const tl = gsap.timeline();
+tl.from(".hero__img", 1.8, {
+    y: 100,
+    ease: "power4.out",
+    delay: 5.7,
+    skewY: 1,
+    stagger: {
+    amount: 0.3
+    }
+})
+
+//PRELOADER PROGRESS
+//DONE WITH JQUERY
+$(document).ready(function(){
+    var count=0;
+    var counter= setInterval(function() {
+      if(count<101){
+        $('.count').text(count+'%');
+        count++; 
+      }
+      else {
+        clearInterval(counter);
+      }
+    },50)
+});

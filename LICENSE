@@ -1,0 +1,45 @@
+MIT License
+
+Copyright (c) 2026 Donrington (cybersage.dev)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+ADDITIONAL DESIGN & BRANDING TERMS
+
+The MIT license above covers the source code (logic, architecture, component
+structure). The following terms apply separately to the visual design and brand
+assets of this project:
+
+1. BRAND ASSETS — The "Cybersage" name, logo, wordmark, color palette, custom
+   cursor system, and all visual identity elements are proprietary and are NOT
+   covered by the MIT license. All rights reserved.
+
+2. DESIGN — The specific UI/UX design, layout compositions, motion design, and
+   overall aesthetic of cybersage.dev are the original creative work of the
+   author. You may NOT replicate the visual design or present it as your own
+   portfolio, product, or commercial work.
+
+3. LEARNING — You are explicitly welcome to study the architecture, patterns,
+   and implementation techniques for personal learning and to inform your own
+   original work.
+
+In short: learn from the code freely. Do not clone the design or impersonate
+the brand.
