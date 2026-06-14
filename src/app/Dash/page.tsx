@@ -1,9 +1,3 @@
-import { redirect } from 'next/navigation';
-
-export default function Page() {
-  // normalize lowercase /dash to canonical /Dash
-  redirect('/Dash');
-}
 "use client";
 
 import { useEffect, useState } from 'react';
@@ -21,7 +15,6 @@ function Login({ onAuth }: { onAuth: () => void }) {
       body: JSON.stringify({ password: pw }),
     });
     if (res.ok) {
-      // ensure cookie is set (fallback for environments that ignore Set-Cookie on fetch)
       if (typeof document !== 'undefined' && !document.cookie.includes('site-auth')) {
         document.cookie = `site-auth=1; Path=/; Max-Age=${60 * 60 * 24}`;
       }
