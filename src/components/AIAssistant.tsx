@@ -180,7 +180,22 @@ export function AIAssistant() {
         signal: abort.signal,
       });
 
-      if (!res.ok || !res.body) throw new Error('Request failed');
+      // Check for errors first
+      if (!res.ok) {
+        const contentType = res.headers.get('content-type');
+        let errorMsg = 'Request failed';
+        
+        if (contentType?.includes('application/json')) {
+          try {
+            const errorData = await res.json();
+            errorMsg = errorData.error || errorMsg;
+          } catch {}
+        }
+        
+        throw new Error(errorMsg);
+      }
+
+      if (!res.body) throw new Error('No response body');
 
       const reader  = res.body.getReader();
       const decoder = new TextDecoder();

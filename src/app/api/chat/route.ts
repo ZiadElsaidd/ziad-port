@@ -188,16 +188,31 @@ const ALLOWED_ROLES   = new Set(['user', 'assistant']);
 
 export async function POST(req: NextRequest) {
   try {
+    // Check API key
+    if (!process.env.ANTHROPIC_API_KEY) {
+      console.error('Missing ANTHROPIC_API_KEY environment variable');
+      return new Response('Service configuration error', { 
+        status: 500, 
+        headers: getSecurityHeaders() 
+      });
+    }
+
     // Rate limiting - 20 requests per minute
     const ip = getClientIP(req);
     if (!checkRateLimit(ip, 20)) {
-      return new Response('Too many requests. Please try again later.', { status: 429, headers: getSecurityHeaders() });
+      return new Response('Too many requests. Please try again later.', { 
+        status: 429, 
+        headers: getSecurityHeaders() 
+      });
     }
 
     const { messages } = await req.json();
 
     if (!messages || !Array.isArray(messages)) {
-      return new Response('Invalid request', { status: 400, headers: getSecurityHeaders() });
+      return new Response('Invalid request', { 
+        status: 400, 
+        headers: getSecurityHeaders() 
+      });
     }
 
     // Validate every message has a known role and a string content
@@ -208,7 +223,10 @@ export async function POST(req: NextRequest) {
         ALLOWED_ROLES.has(m.role) &&
         typeof m.content === 'string',
     );
-    if (!valid) return new Response('Invalid messages', { status: 400, headers: getSecurityHeaders() });
+    if (!valid) return new Response('Invalid messages', { 
+      status: 400, 
+      headers: getSecurityHeaders() 
+    });
 
     // Cap history length — keep only the most recent turns
     const capped = messages.slice(-MAX_MESSAGES);
@@ -242,27 +260,35 @@ export async function POST(req: NextRequest) {
               controller.enqueue(encoder.encode(chunk.delta.text));
             }
           }
-        } catch (err) {
-          console.error('Stream error:', err);
-          controller.error(err);
-        } finally {
           controller.close();
+        } catch (err) {
+          console.error('Stream chunk error:', err);
+          controller.error(err);
         }
       },
     });
 
-    const headers = new Headers({
-      ...getSecurityHeaders(),
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Transfer-Encoding': 'chunked',
-      'Cache-Control': 'no-cache',
-    });
-
     return new Response(readable, {
-      headers,
+      status: 200,
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-cache',
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'DENY',
+        'X-XSS-Protection': '1; mode=block',
+      },
     });
   } catch (err) {
     console.error('Chat route error:', err);
-    return new Response('An error occurred', { status: 500, headers: getSecurityHeaders() });
+    return new Response(
+      JSON.stringify({ error: 'An error occurred while processing your request' }),
+      { 
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Content-Type-Options': 'nosniff',
+        }
+      }
+    );
   }
 }
