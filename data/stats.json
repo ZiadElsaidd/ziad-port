@@ -1,0 +1,26 @@
+[
+  {
+    "id": "experience",
+    "label": "Years of Experience",
+    "target": 5,
+    "suffix": "+"
+  },
+  {
+    "id": "projects",
+    "label": "Projects Shipped",
+    "target": 50,
+    "suffix": "+"
+  },
+  {
+    "id": "clients",
+    "label": "Global Clients",
+    "target": 40,
+    "suffix": "+"
+  },
+  {
+    "id": "countries",
+    "label": "Countries Served",
+    "target": 8,
+    "suffix": ""
+  }
+]

@@ -8,12 +8,19 @@ import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const STATS = [
-  { label: 'Years of Experience', target: 5,   suffix: '+' },
-  { label: 'Projects Shipped',    target: 50,  suffix: '+' },
-  { label: 'Global Clients',      target: 40, suffix: '+' },
-  { label: 'Countries Served',    target: 8,   suffix: ''  },
+const DEFAULT_STATS = [
+  { id: 'experience', label: 'Years of Experience', target: 5,   suffix: '+' },
+  { id: 'projects',   label: 'Projects Shipped',    target: 50,  suffix: '+' },
+  { id: 'clients',    label: 'Global Clients',      target: 40, suffix: '+' },
+  { id: 'countries',  label: 'Countries Served',    target: 8,   suffix: ''  },
 ];
+
+type StatItem = {
+  id: string;
+  label: string;
+  target: number;
+  suffix: string;
+};
 
 const COUNTRIES = [
   'Nigeria', 'United States', 'Canada', 'United Kingdom',
@@ -94,10 +101,29 @@ export function About() {
   const imageRef   = useRef<HTMLDivElement>(null);
   const lineRef    = useRef<HTMLDivElement>(null);
 
+  const [stats, setStats] = useState<StatItem[]>(DEFAULT_STATS);
+
   const sectionInView = useInView(sectionRef, { once: true, margin: '-10%' });
   const statsInView   = useInView(statsRef,   { once: true, margin: '-5%'  });
 
   useEffect(() => {
+    fetch('/api/admin/stats')
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length) {
+          const parsed = (data as StatItem[]).map((item) => ({
+            id: String(item.id),
+            label: String(item.label),
+            target: Number(item.target) || 0,
+            suffix: String(item.suffix || ''),
+          }));
+          setStats(parsed);
+        }
+      })
+      .catch(() => {
+        // keep default stats on failure
+      });
+
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
 
@@ -182,9 +208,9 @@ export function About() {
           {/* Left: stats + countries */}
           <div className="flex flex-col gap-[clamp(2.5rem,4vw,3.5rem)]">
           <div ref={statsRef} className="grid grid-cols-2 gap-x-8 gap-y-12 content-start">
-            {STATS.map((stat, i) => (
+            {stats.map((stat, i) => (
               <motion.div
-                key={stat.label}
+                key={stat.id}
                 initial={{ opacity: 0, y: 28, clipPath: 'inset(100% 0 0 0)' }}
                 animate={statsInView ? { opacity: 1, y: 0, clipPath: 'inset(0% 0 0 0)' } : {}}
                 transition={{ duration: 0.7, delay: i * 0.1, ease: EASE }}

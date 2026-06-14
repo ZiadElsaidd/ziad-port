@@ -2,6 +2,28 @@
 
 import { useEffect, useState } from 'react';
 
+type ProjectItem = {
+  id: string;
+  title: string;
+  description: string;
+  year?: number | string;
+  url?: string;
+};
+
+type ReviewItem = {
+  id: string;
+  author: string;
+  text: string;
+  rating: number;
+};
+
+type StatItem = {
+  id: string;
+  label: string;
+  target: number;
+  suffix: string;
+};
+
 function Login({ onAuth }: { onAuth: () => void }) {
   const [pw, setPw] = useState('');
   const [err, setErr] = useState<string | null>(null);
@@ -45,28 +67,34 @@ function Login({ onAuth }: { onAuth: () => void }) {
 }
 
 export default function DashPage() {
-  const [authed, setAuthed] = useState(false);
-  const [projects, setProjects] = useState<any[]>([]);
-  const [reviews, setReviews] = useState<any[]>([]);
+  const [authed, setAuthed] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.sessionStorage.getItem('dash-auth') === '1';
+  });
+  const [projects, setProjects] = useState<ProjectItem[]>([]);
+  const [reviews, setReviews] = useState<ReviewItem[]>([]);
+  const [stats, setStats] = useState<StatItem[]>([]);
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
-
-  useEffect(() => {
-    if (sessionStorage.getItem('dash-auth') === '1') setAuthed(true);
-  }, []);
+  const [year, setYear] = useState('');
+  const [url, setUrl] = useState('');
 
   useEffect(() => {
     if (!authed) return;
     fetch('/api/admin/projects').then((r) => r.json()).then(setProjects);
     fetch('/api/admin/reviews').then((r) => r.json()).then(setReviews);
+    fetch('/api/admin/stats').then((r) => r.json()).then(setStats);
   }, [authed]);
 
   async function addProject() {
-    const res = await fetch('/api/admin/projects', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title, description: desc }) });
+    const res = await fetch('/api/admin/projects', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title, description: desc, year: year ? Number(year) : undefined, url }) });
     if (res.ok) {
       const added = await res.json();
       setProjects((p) => [...p, added]);
-      setTitle(''); setDesc('');
+      setTitle('');
+      setDesc('');
+      setYear('');
+      setUrl('');
     }
   }
 
@@ -75,8 +103,20 @@ export default function DashPage() {
     if (res.ok) setProjects((p) => p.filter((x) => x.id !== id));
   }
 
-  async function addReview(author: string, text: string) {
-    const res = await fetch('/api/admin/reviews', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ author, text, rating: 5 }) });
+  async function updateStats() {
+    const res = await fetch('/api/admin/stats', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(stats),
+    });
+    if (res.ok) {
+      const updated = await res.json();
+      setStats(updated);
+    }
+  }
+
+  async function addReview(author: string, text: string, rating: number) {
+    const res = await fetch('/api/admin/reviews', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ author, text, rating }) });
     if (res.ok) {
       const added = await res.json();
       setReviews((r) => [...r, added]);
@@ -102,10 +142,16 @@ export default function DashPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           {projects.map((p) => (
             <div key={p.id} className="border p-3">
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-start gap-4">
                 <div>
                   <div className="font-semibold">{p.title}</div>
-                  <div className="text-sm text-gray-600">{p.description}</div>
+                  <div className="text-sm text-gray-600 mb-2">{p.description}</div>
+                  <div className="text-xs text-black/50">Year: {p.year ?? 'N/A'}</div>
+                  {p.url && (
+                    <a href={p.url} target="_blank" rel="noreferrer" className="text-xs text-blue-600 hover:underline">
+                      Live link
+                    </a>
+                  )}
                 </div>
                 <button onClick={() => delProject(p.id)} className="text-red-600">Delete</button>
               </div>
@@ -116,10 +162,53 @@ export default function DashPage() {
         <div className="border p-4">
           <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" className="w-full border px-3 py-2 mb-2" />
           <textarea value={desc} onChange={(e) => setDesc(e.target.value)} placeholder="Description" className="w-full border px-3 py-2 mb-2" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <input value={year} onChange={(e) => setYear(e.target.value)} placeholder="Year" className="w-full border px-3 py-2" />
+            <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="URL" className="w-full border px-3 py-2" />
+          </div>
           <div className="flex gap-2">
             <button onClick={addProject} className="px-4 py-2 bg-black text-white">Add Project</button>
           </div>
         </div>
+      </section>
+
+      <section className="mb-10">
+        <h3 className="font-bold mb-3">Stats</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          {stats.map((stat, index) => (
+            <div key={stat.id} className="border p-3">
+              <div className="mb-3 font-semibold">{stat.label}</div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs text-black/50 mb-1">Value</label>
+                  <input
+                    type="number"
+                    value={stat.target}
+                    onChange={(e) => {
+                      const next = [...stats];
+                      next[index] = { ...next[index], target: Number(e.target.value) };
+                      setStats(next);
+                    }}
+                    className="w-full border px-3 py-2"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-black/50 mb-1">Suffix</label>
+                  <input
+                    value={stat.suffix}
+                    onChange={(e) => {
+                      const next = [...stats];
+                      next[index] = { ...next[index], suffix: e.target.value };
+                      setStats(next);
+                    }}
+                    className="w-full border px-3 py-2"
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <button onClick={updateStats} className="px-4 py-2 bg-black text-white">Save stats</button>
       </section>
 
       <section>
@@ -127,10 +216,11 @@ export default function DashPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           {reviews.map((r) => (
             <div key={r.id} className="border p-3">
-              <div className="flex justify-between">
+              <div className="flex justify-between items-start gap-4">
                 <div>
                   <div className="font-semibold">{r.author}</div>
-                  <div className="text-sm text-gray-600">{r.text}</div>
+                  <div className="text-sm text-gray-600 mb-2">{r.text}</div>
+                  <div className="text-xs text-black/50">Rating: {r.rating}</div>
                 </div>
                 <button onClick={() => delReview(r.id)} className="text-red-600">Delete</button>
               </div>
@@ -139,22 +229,33 @@ export default function DashPage() {
         </div>
 
         <div className="border p-4">
-          <AddReviewForm onAdd={(a, t) => addReview(a, t)} />
+          <AddReviewForm onAdd={(a, t, r) => addReview(a, t, r)} />
         </div>
       </section>
     </div>
   );
 }
 
-function AddReviewForm({ onAdd }: { onAdd: (author: string, text: string) => void }) {
+function AddReviewForm({ onAdd }: { onAdd: (author: string, text: string, rating: number) => void }) {
   const [author, setAuthor] = useState('');
   const [text, setText] = useState('');
+  const [rating, setRating] = useState(5);
   return (
     <div>
       <input value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Author" className="w-full border px-3 py-2 mb-2" />
       <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder="Review text" className="w-full border px-3 py-2 mb-2" />
+      <div className="grid grid-cols-2 gap-4 mb-4">
+        <label className="flex flex-col text-sm text-black/50">
+          Rating
+          <select value={rating} onChange={(e) => setRating(Number(e.target.value))} className="mt-2 border px-3 py-2">
+            {[5, 4, 3, 2, 1].map((value) => (
+              <option key={value} value={value}>{value} stars</option>
+            ))}
+          </select>
+        </label>
+      </div>
       <div className="flex gap-2">
-        <button onClick={() => { onAdd(author, text); setAuthor(''); setText(''); }} className="px-4 py-2 bg-black text-white">Add Review</button>
+        <button onClick={() => { onAdd(author, text, rating); setAuthor(''); setText(''); setRating(5); }} className="px-4 py-2 bg-black text-white">Add Review</button>
       </div>
     </div>
   );
