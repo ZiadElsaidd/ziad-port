@@ -34,10 +34,11 @@ export async function POST(req: NextRequest) {
     }
 
     if (supabase) {
+      const client = supabase;
       await Promise.all(
         body.map(async (item: StatPayload) => {
           const { id, label, target, suffix } = item;
-          const { error } = await supabase.from('stats').upsert({ id, label, target, suffix }, { onConflict: 'id' });
+          const { error } = await client.from('stats').upsert({ id, label, target, suffix }, { onConflict: 'id' });
           if (error) throw error;
         }),
       );
