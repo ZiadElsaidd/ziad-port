@@ -4,15 +4,21 @@ import type { NextRequest } from 'next/server';
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Allow public assets, Next internals, API login endpoint
+  // Always allow internals and public assets
   if (
     pathname.startsWith('/_next') ||
-    pathname.startsWith('/api/admin/login') ||
-    pathname === '/login' ||
-    pathname.startsWith('/api') ||
     pathname.startsWith('/static') ||
-    pathname.startsWith('/public')
+    pathname.startsWith('/public') ||
+    pathname === '/favicon.ico'
   ) {
+    return NextResponse.next();
+  }
+
+  // Protect only dashboard and admin API routes
+  const protectDashboard = pathname === '/Dash' || pathname.startsWith('/Dash/');
+  const protectAdminApi = pathname.startsWith('/api/admin') && !pathname.startsWith('/api/admin/login');
+
+  if (!protectDashboard && !protectAdminApi) {
     return NextResponse.next();
   }
 
@@ -20,6 +26,7 @@ export function middleware(req: NextRequest) {
   if (!hasAuth) {
     const url = req.nextUrl.clone();
     url.pathname = '/login';
+    url.searchParams.set('next', pathname);
     return NextResponse.redirect(url);
   }
 
@@ -27,5 +34,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: '/((?!api|_next|static|favicon.ico).*)',
+  matcher: ['/Dash/:path*', '/api/admin/:path*'],
 };
