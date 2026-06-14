@@ -1,3 +1,9 @@
+import { redirect } from 'next/navigation';
+
+export default function Page() {
+  // normalize lowercase /dash to canonical /Dash
+  redirect('/Dash');
+}
 "use client";
 
 import { useEffect, useState } from 'react';

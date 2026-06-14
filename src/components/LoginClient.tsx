@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 export default function LoginClient() {
   const router = useRouter();
   const params = useSearchParams();
-  const next = params?.get('next') || '/';
+  const next = params?.get('next') || '/Dash';
   const [pw, setPw] = useState('');
   const [err, setErr] = useState('');
 
