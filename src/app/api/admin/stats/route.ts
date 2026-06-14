@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
 import supabase from '../../../../lib/supabaseAdmin';
+import { checkRateLimit, getClientIP, getSecurityHeaders, validateRequestBody } from '@/lib/security';
 
 type StatPayload = {
   id: string;
@@ -28,9 +29,13 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIP(req);
+    if (!checkRateLimit(ip, 10)) {
+      return new Response('Too many requests', { status: 429, headers: getSecurityHeaders() });
+    }
     const body = (await req.json()) as StatPayload[];
     if (!Array.isArray(body)) {
-      return new Response('Invalid payload', { status: 400 });
+      return new Response('Invalid payload', { status: 400, headers: getSecurityHeaders() });
     }
 
     if (supabase) {
@@ -42,12 +47,13 @@ export async function POST(req: NextRequest) {
           if (error) throw error;
         }),
       );
-      return new Response(JSON.stringify(body), { status: 200, headers: { 'Content-Type': 'application/json' } });
+      return new Response(JSON.stringify(body), { status: 200, headers: { ...getSecurityHeaders(), 'Content-Type': 'application/json' } });
     }
 
     await writeFile(DATA_FILE, JSON.stringify(body, null, 2), 'utf8');
-    return new Response(JSON.stringify(body), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify(body), { status: 200, headers: { ...getSecurityHeaders(), 'Content-Type': 'application/json' } });
   } catch (err) {
-    return new Response(String(err), { status: 500 });
+    console.error('Stats POST error:', err);
+    return new Response(JSON.stringify({ error: 'Failed to update stats' }), { status: 500, headers: getSecurityHeaders() });
   }
 }

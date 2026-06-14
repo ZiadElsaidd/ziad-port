@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { getSecurityHeaders } from '@/lib/security';
 
 const USERNAME = 'ZiadElsaidd';
 const GH_TOKEN  = process.env.GITHUB_TOKEN;
@@ -67,8 +68,9 @@ export async function GET() {
       totalLastYear: contribs?.total?.lastYear ?? 0,
       contributions: contribs?.contributions  ?? [],
       events:        filtered,
-    });
-  } catch {
-    return NextResponse.json({ error: true }, { status: 500 });
+    }, { headers: getSecurityHeaders() });
+  } catch (err) {
+    console.error('GitHub route error:', err);
+    return NextResponse.json({ error: true }, { status: 500, headers: getSecurityHeaders() });
   }
 }

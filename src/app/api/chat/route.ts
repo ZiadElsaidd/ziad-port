@@ -1,5 +1,11 @@
 import { NextRequest } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
+import { 
+  checkRateLimit, 
+  getClientIP,
+  getSecurityHeaders,
+  sanitizeInput 
+} from '@/lib/security';
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -182,10 +188,16 @@ const ALLOWED_ROLES   = new Set(['user', 'assistant']);
 
 export async function POST(req: NextRequest) {
   try {
+    // Rate limiting - 20 requests per minute
+    const ip = getClientIP(req);
+    if (!checkRateLimit(ip, 20)) {
+      return new Response('Too many requests. Please try again later.', { status: 429, headers: getSecurityHeaders() });
+    }
+
     const { messages } = await req.json();
 
     if (!messages || !Array.isArray(messages)) {
-      return new Response('Invalid request', { status: 400 });
+      return new Response('Invalid request', { status: 400, headers: getSecurityHeaders() });
     }
 
     // Validate every message has a known role and a string content
@@ -196,18 +208,18 @@ export async function POST(req: NextRequest) {
         ALLOWED_ROLES.has(m.role) &&
         typeof m.content === 'string',
     );
-    if (!valid) return new Response('Invalid messages', { status: 400 });
+    if (!valid) return new Response('Invalid messages', { status: 400, headers: getSecurityHeaders() });
 
     // Cap history length — keep only the most recent turns
     const capped = messages.slice(-MAX_MESSAGES);
 
-    // Truncate any single user message that exceeds the character limit
+    // Sanitize and truncate user messages
     const safe = capped.map((m: { role: string; content: string }) => ({
       role: m.role as 'user' | 'assistant',
       content:
-        m.role === 'user' && m.content.length > MAX_MSG_CHARS
-          ? m.content.slice(0, MAX_MSG_CHARS)
-          : m.content,
+        m.role === 'user' 
+          ? sanitizeInput(m.content.slice(0, MAX_MSG_CHARS))
+          : m.content.slice(0, MAX_MSG_CHARS),
     }));
 
     const stream = await client.messages.stream({
@@ -235,12 +247,14 @@ export async function POST(req: NextRequest) {
 
     return new Response(readable, {
       headers: {
+        ...getSecurityHeaders(),
         'Content-Type': 'text/plain; charset=utf-8',
         'Transfer-Encoding': 'chunked',
         'Cache-Control': 'no-cache',
       },
     });
   } catch (err) {
-    return new Response(String(err), { status: 500 });
+    console.error('Chat route error:', err);
+    return new Response('An error occurred', { status: 500, headers: getSecurityHeaders() });
   }
 }

@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
 import supabase from '../../../../lib/supabaseAdmin';
+import { checkRateLimit, getClientIP, getSecurityHeaders, sanitizeInput } from '@/lib/security';
 
 type LocalProject = {
   id: string;
@@ -30,7 +31,13 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIP(req);
+    if (!checkRateLimit(ip, 10)) {
+      return new Response('Too many requests', { status: 429, headers: getSecurityHeaders() });
+    }
     const body = await req.json();
+    body.title = sanitizeInput(body.title || '');
+    body.description = sanitizeInput(body.description || '');
     if (supabase) {
       const toInsert = {
         title: body.title || '',

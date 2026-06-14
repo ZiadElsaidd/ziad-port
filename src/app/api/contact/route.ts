@@ -1,7 +1,16 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { Resend } from 'resend';
 import fs from 'fs';
 import path from 'path';
+import { 
+  sanitizeInput, 
+  validateEmail, 
+  checkRateLimit, 
+  getClientIP,
+  createErrorResponse,
+  createSuccessResponse,
+  validateRequestBody
+} from '@/lib/security';
 
 function getResendClient() {
   const key = process.env.RESEND_API_KEY;
@@ -174,31 +183,60 @@ function emailTemplate({ name, email, message }: { name: string; email: string; 
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, message } = await req.json();
+    // Rate limiting
+    const ip = getClientIP(req);
+    if (!checkRateLimit(ip, 5)) { // 5 emails per minute
+      return createErrorResponse('Too many contact requests. Please try again later.', 429);
+    }
 
-    if (!name || !email || !message) {
-      return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+    const body = await req.json();
+    const { name, email, message } = body;
+
+    // Validate request body
+    const validation = validateRequestBody(body, {
+      name: { required: true, type: 'string', minLength: 2, maxLength: 100 },
+      email: { required: true, type: 'string', maxLength: 254 },
+      message: { required: true, type: 'string', minLength: 5, maxLength: 5000 },
+    });
+
+    if (!validation.valid) {
+      return createErrorResponse(`Validation error: ${validation.errors.join(', ')}`, 400);
+    }
+
+    // Validate email format
+    if (!validateEmail(email)) {
+      return createErrorResponse('Invalid email format', 400);
+    }
+
+    // Sanitize inputs
+    const sanitizedName = sanitizeInput(name).trim();
+    const sanitizedMessage = sanitizeInput(message).trim();
+
+    if (!sanitizedName || !sanitizedMessage) {
+      return createErrorResponse('Invalid input data', 400);
     }
 
     const resend = getResendClient();
     if (!resend) {
-      return NextResponse.json({ error: 'Missing RESEND_API_KEY' }, { status: 500 });
+      return createErrorResponse('Service temporarily unavailable', 500);
     }
 
     const { error } = await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>',
       to: 'ziadelsaid.dev@gmail.com',
       replyTo: email,
-      subject: `New message from ${name} — Portfolio`,
-      html: emailTemplate({ name, email, message }),
+      subject: `New message from ${sanitizedName} — Portfolio`,
+      html: emailTemplate({ name: sanitizedName, email, message: sanitizedMessage }),
     });
 
     if (error) {
-      return NextResponse.json({ error }, { status: 500 });
+      console.error('Email send error:', error);
+      return createErrorResponse('Failed to send message', 500);
     }
 
-    return NextResponse.json({ success: true });
+    return createSuccessResponse({ success: true });
   } catch (err) {
-    return NextResponse.json({ error: String(err) }, { status: 500 });
+    console.error('Contact route error:', err);
+    return createErrorResponse('An error occurred', 500);
   }
 }

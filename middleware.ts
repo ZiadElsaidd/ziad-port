@@ -1,6 +1,16 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+const SECURITY_HEADERS = {
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  'X-XSS-Protection': '1; mode=block',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'geolocation=(), microphone=(), camera=()',
+  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' *.vercel.app; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data: https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https:; frame-ancestors 'none';",
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+};
+
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
@@ -14,25 +24,16 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // Protect only dashboard and admin API routes
-  const protectDashboard = pathname === '/Dash' || pathname.startsWith('/Dash/');
-  const protectAdminApi = pathname.startsWith('/api/admin') && !pathname.startsWith('/api/admin/login');
+  // Create response and add security headers
+  const response = NextResponse.next();
+  
+  Object.entries(SECURITY_HEADERS).forEach(([key, value]) => {
+    response.headers.set(key, value);
+  });
 
-  if (!protectDashboard && !protectAdminApi) {
-    return NextResponse.next();
-  }
-
-  const hasAuth = req.cookies.get('site-auth');
-  if (!hasAuth) {
-    const url = req.nextUrl.clone();
-    url.pathname = '/login';
-    url.searchParams.set('next', pathname);
-    return NextResponse.redirect(url);
-  }
-
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {
-  matcher: ['/Dash/:path*', '/api/admin/:path*'],
+  matcher: ['/((?!_next|static|public|favicon.ico).*)'],
 };
