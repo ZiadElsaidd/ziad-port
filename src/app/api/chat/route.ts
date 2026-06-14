@@ -233,25 +233,33 @@ export async function POST(req: NextRequest) {
 
     const readable = new ReadableStream({
       async start(controller) {
-        for await (const chunk of stream) {
-          if (
-            chunk.type === 'content_block_delta' &&
-            chunk.delta.type === 'text_delta'
-          ) {
-            controller.enqueue(encoder.encode(chunk.delta.text));
+        try {
+          for await (const chunk of stream) {
+            if (
+              chunk.type === 'content_block_delta' &&
+              chunk.delta.type === 'text_delta'
+            ) {
+              controller.enqueue(encoder.encode(chunk.delta.text));
+            }
           }
+        } catch (err) {
+          console.error('Stream error:', err);
+          controller.error(err);
+        } finally {
+          controller.close();
         }
-        controller.close();
       },
     });
 
+    const headers = new Headers({
+      ...getSecurityHeaders(),
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Transfer-Encoding': 'chunked',
+      'Cache-Control': 'no-cache',
+    });
+
     return new Response(readable, {
-      headers: {
-        ...getSecurityHeaders(),
-        'Content-Type': 'text/plain; charset=utf-8',
-        'Transfer-Encoding': 'chunked',
-        'Cache-Control': 'no-cache',
-      },
+      headers,
     });
   } catch (err) {
     console.error('Chat route error:', err);
