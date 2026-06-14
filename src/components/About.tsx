@@ -21,7 +21,7 @@ const COUNTRIES = [
 ];
 
 const QUOTE_WORDS = [
-  'I', 'architect', 'systems', 'that', "don’t", 'just', 'work', '—',
+  'I', 'build', 'systems', 'that', "don’t", 'just', 'work', '—',
   'they', 'scale,', 'survive', 'failure,', 'and', 'stay', 'clean', 'under', 'pressure.',
 ];
 
@@ -276,7 +276,7 @@ export function About() {
               >
                 5+ years designing and running production systems for global clients — multi-tenant
                 compliance platforms, HIPAA medical portals, high-traffic marketplaces. I own the
-                system end-to-end: architecture, infrastructure, backend, delivery.
+                product end-to-end: frontend, backend, delivery.
               </p>
               <p
                 className="text-black/40 leading-relaxed"

@@ -314,7 +314,7 @@ export default function NotFound() {
           className="text-[0.5rem] tracking-[0.18em] uppercase text-black/12 font-medium pt-6"
           style={{ fontFamily: 'Satoshi, system-ui, sans-serif' }}
         >
-          Infrastructure &amp; Systems Architect
+          Full Stack Developer
         </span>
       </motion.div>
 

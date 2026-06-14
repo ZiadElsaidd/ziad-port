@@ -60,7 +60,7 @@ export default function Image() {
               textTransform: 'uppercase',
             }}
           >
-            Infrastructure &amp; Systems Architect
+            Full Stack Developer
           </span>
 
           <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -97,7 +97,7 @@ export default function Image() {
               margin: '6px 0 0',
             }}
           >
-            5+ years architecting distributed, production-grade systems.
+            5+ years building production-grade web applications.
             Available for hire — remote, worldwide.
           </p>
         </div>
@@ -138,7 +138,7 @@ export default function Image() {
               letterSpacing: '0.08em',
             }}
           >
-            cybersage.dev
+            ziad-port.vercel.app
           </span>
         </div>
       </div>

@@ -177,7 +177,7 @@ export function Hero() {
               lineHeight: 1.25,
             }}
           >
-            Infrastructure &amp; Systems Architect designing distributed platforms for regulated industries — from embedded edge to cloud.
+            Full Stack Developer building production-grade web applications and distributed platforms for regulated industries — from embedded edge to cloud.
           </p>
 
           {/* Bottom row: stack + CTA */}

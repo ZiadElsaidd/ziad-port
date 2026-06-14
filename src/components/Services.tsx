@@ -18,7 +18,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const SERVICES = [
   {
     index: '01',
-    title: 'Systems Architecture',
+    title: 'System Design',
     short: 'Design before code.',
     body: 'Data models, service boundaries, API contracts, failure modes, and capacity planning — mapped before a line of production code. I deliver architectures teams can build on for years, with documentation that survives handover.',
     keywords: ['System Design', 'Multi-Tenant', 'Event-Driven', 'Capacity Planning'],

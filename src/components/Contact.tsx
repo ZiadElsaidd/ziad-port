@@ -699,7 +699,7 @@ export function Contact() {
               transition={{ duration: 0.5, delay: 0.8, ease: EASE }}
             >
               <a
-                href="https://websitelaunches.com/site/cybersage.dev"
+                href="https://websitelaunches.com/site/ziad-port.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-3 border border-white/10 px-4 py-3 hover:border-white/22 transition-all duration-300"

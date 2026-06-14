@@ -1,6 +1,6 @@
 # Cybersage — Personal Portfolio
 
-> **Live site:** [cybersage.dev](https://cybersage.dev)
+> **Live site:** [Ziad Portfolio](https://ziad-port.vercel.app)
 
 A bespoke, custom-built portfolio for **Donrington** — designed and engineered from the ground up. Not a template. Not a theme.
 
@@ -66,4 +66,4 @@ Built with [Next.js](https://nextjs.org), [Tailwind CSS](https://tailwindcss.com
 
 ---
 
-© 2026 Donrington · [cybersage.dev](https://cybersage.dev)
+© 2026 Donrington · [Ziad Portfolio](https://ziad-port.vercel.app)

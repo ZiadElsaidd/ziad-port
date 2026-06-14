@@ -11,93 +11,54 @@ const instrumentSerif = Instrument_Serif({
   display: 'swap',
 });
 
-const BASE_URL = 'https://cybersage.dev';
+const BASE_URL = 'https://ziad-port.vercel.app';
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 
   title: {
-    default: 'Ziad Elsaid | Infrastructure & Systems Architect',
+    default: 'Ziad Elsaid | Full Stack Developer & Web Designer',
     template: '%s | Ziad Elsaid',
   },
 
   description:
-    'Ziad Elsaid (Cybersage) — Infrastructure & Systems Architect with 5+ years designing distributed, production-grade platforms. Cloud architecture, DevOps, Go & Django backends, PostgreSQL, AWS. Available for hire — remote, worldwide.',
+    'Ziad Elsaid (Full Stack Developer) — Full Stack Developer with 5+ years building production-grade web applications and end-to-end product delivery. Frontend, backend, APIs, and performance-oriented UI/UX. Available for hire — remote, worldwide.',
 
   keywords: [
     // Brand / name
     'Ziad Elsaid',
-    'Elsaid Ziad',
+    'Full Stack Developer',
     'Cybersage',
-    'cybersage.dev',
-    'Cybersage developer',
-    'Donrington',
     // Role
-    'Infrastructure Architect',
-    'Systems Architect',
-    'Solutions Architect',
-    'Cloud Architect',
-    'Platform Engineer',
-    'Backend Architect',
-    'DevOps Engineer',
-    'Site Reliability Engineer',
-    'Software Engineer',
     'Full Stack Engineer',
-    'Backend Engineer',
-    'Go Developer',
-    'Golang Developer',
-    'Django Developer',
+    'Frontend Developer',
+    'Backend Developer',
     'Next.js Developer',
-    'Python Developer',
+    'React Developer',
+    'Web Developer',
+    'Remote Developer',
+    'Freelance Developer',
+    'Available for hire',
     // Hire intent
-    'hire systems architect',
-    'hire cloud architect',
-    'hire infrastructure architect',
-    'hire platform engineer',
-    'hire backend architect',
-    'hire software engineer',
-    'freelance solutions architect',
-    'freelance software engineer',
-    'remote systems architect for hire',
-    'contract architect',
-    'available for hire',
+    'hire full stack developer',
+    'hire frontend developer',
+    'hire backend developer',
     // Tech stack
-    'AWS',
-    'Docker',
-    'Kubernetes',
-    'Terraform',
-    'Go',
+    'Next.js',
+    'React',
+    'TypeScript',
+    'Node.js',
     'Django',
     'PostgreSQL',
     'Redis',
-    'Next.js',
-    'distributed systems',
-    'system design',
-    'infrastructure as code',
-    'REST API development',
-    'Microservices',
-    'CI/CD',
-    'high availability architecture',
+    'Tailwind CSS',
+    'Framer Motion',
+    'GSAP',
     // Portfolio / reach
-    'Systems Architect portfolio',
-    'Cloud Architect portfolio',
     'Software Engineer portfolio',
-    'Nigerian software engineer',
-    'African developer',
     'remote developer worldwide',
-    'enterprise web development',
     'scalable web applications',
-    'production-grade web systems',
     'high-performance web apps',
-    // Niche specialisations
-    'AI engineer',
-    'computer vision developer',
-    'embedded systems developer',
-    'WebRTC developer',
-    'real-time systems engineer',
-    'HIPAA compliant development',
-    'AI surveillance system',
-    'regulated industries software',
   ],
 
   authors: [{ name: 'Ziad Elsaid', url: BASE_URL }],
@@ -113,17 +74,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: BASE_URL,
-    siteName: 'Cybersage — Ziad Elsaid',
-    title: 'Ziad Elsaid | Infrastructure & Systems Architect',
+    siteName: 'Full Stack Developer — Ziad Elsaid',
+    title: 'Ziad Elsaid | Full Stack Developer & Web Designer',
     description:
-      '5+ years architecting distributed, production-grade systems. AWS · Docker · Go · Django · PostgreSQL · Redis. Available for hire — remote, worldwide.',
+      '5+ years building production-grade web applications. Frontend · Backend · APIs · Performance. Available for hire — remote, worldwide.',
     locale: 'en_US',
     images: [
       {
         url: `${BASE_URL}/cybersage_og.png`,
         width: 1200,
         height: 630,
-        alt: 'Ziad Elsaid — Infrastructure & Systems Architect',
+        alt: 'Ziad Elsaid — Full Stack Developer & Web Designer',
         type: 'image/png',
       },
     ],
@@ -133,9 +94,9 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@CarlSwitch_CHUG',
     creator: '@CarlSwitch_CHUG',
-    title: 'Ziad Elsaid | Infrastructure & Systems Architect',
+    title: 'Ziad Elsaid | Full Stack Developer',
     description:
-      '5+ years architecting production-grade distributed systems. AWS · Docker · Go · Django · PostgreSQL. Available for hire worldwide.',
+      '5+ years building production-grade web applications. Frontend · Backend · APIs. Available for hire worldwide.',
     images: [`${BASE_URL}/cybersage_og.png`],
   },
 
@@ -195,59 +156,53 @@ const personSchema = {
     width: 1200,
     height: 630,
   },
-  jobTitle: 'Infrastructure & Systems Architect',
+  jobTitle: 'Full Stack Developer',
   description:
-    'Infrastructure & Systems Architect with 5+ years of experience designing distributed, production-grade platforms — cloud infrastructure, DevOps pipelines, and resilient backends on AWS, Docker, Go, Django, and PostgreSQL.',
+    'Full Stack Developer with 5+ years of experience building production-grade web applications — frontend and backend development, API design, performance optimisation, and reliable deployments.',
   email: 'ziadelsaid.dev@gmail.com',
   nationality: { '@type': 'Country', name: 'Egypt' },
   hasOccupation: {
     '@type': 'Occupation',
-    name: 'Infrastructure & Systems Architect',
+    name: 'Full Stack Developer',
     description:
-      'Designs cloud infrastructure, distributed backends, and system architecture for clients worldwide — from data models and service boundaries to zero-downtime deployment.',
+      'Designs and implements end-to-end web applications, from UI/UX and frontend performance to backend APIs and deployment pipelines.',
     occupationLocation: { '@type': 'Country', name: 'Worldwide' },
     skills:
-      'System Design, Cloud Architecture, AWS, Docker, Kubernetes, CI/CD, Go, Django, PostgreSQL, Redis, Microservices, REST APIs, Next.js, React, TypeScript',
+      'Frontend Development, Backend Development, API Design, Performance Optimisation, Next.js, React, TypeScript, Node.js, Django, PostgreSQL, Redis',
   },
   knowsAbout: [
-    'System Design', 'Cloud Architecture', 'Distributed Systems',
-    'AWS', 'Docker', 'Kubernetes', 'Terraform',
-    'CI/CD', 'DevOps', 'Infrastructure as Code',
-    'Go', 'Django', 'Python', 'Node.js',
-    'PostgreSQL', 'Redis', 'MongoDB',
-    'REST APIs', 'Microservices', 'High Availability',
-    'Web Performance Optimisation',
+    'Frontend Development', 'Backend Development', 'API Design',
     'Next.js', 'React', 'TypeScript', 'JavaScript',
-    'Computer Vision', 'Embedded Systems', 'WebRTC',
-    'Real-time Systems', 'AI Engineering', 'HIPAA Compliance',
+    'Node.js', 'Django', 'PostgreSQL', 'Redis',
+    'REST APIs', 'CI/CD', 'Performance Optimisation',
   ],
   makesOffer: [
     {
       '@type': 'Offer',
-      itemOffered: {
-        '@type': 'Service',
-        name: 'Systems Architecture & Design',
-        description:
-          'Data models, service boundaries, API contracts, and capacity planning — system design before production code.',
-      },
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Full Stack Development',
+          description:
+            'End-to-end web application development including frontend, backend, and API integration.',
+        },
     },
     {
       '@type': 'Offer',
-      itemOffered: {
-        '@type': 'Service',
-        name: 'Cloud Infrastructure & DevOps',
-        description:
-          'AWS cloud infrastructure, CI/CD pipelines, Docker containerisation, and zero-downtime deployment automation.',
-      },
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Deployment & CI/CD Support',
+          description:
+            'Deployment pipelines, containerisation support, and continuous delivery for reliable releases.',
+        },
     },
     {
       '@type': 'Offer',
-      itemOffered: {
-        '@type': 'Service',
-        name: 'Distributed Backend & API Engineering',
-        description:
-          'Go and Django services with rate-limiting, idempotency, circuit breakers, and caching strategies built for scale.',
-      },
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Backend & API Engineering',
+          description:
+            'Design and implement robust backend services and REST/GraphQL APIs with testing and documentation.',
+        },
     },
     {
       '@type': 'Offer',
@@ -279,7 +234,7 @@ const websiteSchema = {
   url: BASE_URL,
   name: 'Cybersage — Ziad Elsaid',
   description:
-    'Portfolio and professional profile of Ziad Elsaid — Infrastructure & Systems Architect.',
+    'Portfolio and professional profile of Ziad Elsaid — Full Stack Developer.',
   author: { '@id': `${BASE_URL}/#person` },
   publisher: { '@id': `${BASE_URL}/#person` },
   inLanguage: 'en-US',
@@ -299,9 +254,9 @@ const profilePageSchema = {
   '@type': 'ProfilePage',
   '@id': `${BASE_URL}/#profilepage`,
   url: BASE_URL,
-  name: 'Ziad Elsaid — Infrastructure & Systems Architect Portfolio',
+  name: 'Ziad Elsaid — Full Stack Developer Portfolio',
   description:
-    'Professional portfolio of Ziad Elsaid (Cybersage), an Infrastructure & Systems Architect with 5+ years of experience designing production-grade distributed systems.',
+    'Professional portfolio of Ziad Elsaid — Full Stack Developer with 5+ years of experience building production-grade web applications.',
   dateCreated: '2024-01-01',
   dateModified: new Date().toISOString().split('T')[0],
   mainEntity: { '@id': `${BASE_URL}/#person` },

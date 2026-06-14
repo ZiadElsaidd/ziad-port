@@ -16,7 +16,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    sitemap: 'https://cybersage.dev/sitemap.xml',
-    host: 'https://cybersage.dev',
+    sitemap: 'https://ziad-port.vercel.app/sitemap.xml',
+    host: 'https://ziad-port.vercel.app',
   };
 }

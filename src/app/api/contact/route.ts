@@ -157,7 +157,7 @@ function emailTemplate({ name, email, message }: { name: string; email: string; 
           <tr>
             <td style="padding-top: 20px;">
               <p style="font-size:10px; letter-spacing:0.12em; color:rgba(255,255,255,0.12); line-height:1.8;">
-                This message was submitted via the contact form at cybersage.dev<br/>
+                This message was submitted via the contact form at ziad-port.vercel.app<br/>
                 © 2026 Ziad Elsaid · All rights reserved
               </p>
             </td>

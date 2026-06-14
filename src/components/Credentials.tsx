@@ -701,7 +701,7 @@ export function Credentials() {
                 animate={resumeInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.42, duration: 0.55, ease: EASE }}
               >
-                Infrastructure &amp; Systems Architect — 5+ years · Remote
+                Full Stack Developer — 5+ years · Remote
               </motion.p>
 
               {/* Stack tags */}

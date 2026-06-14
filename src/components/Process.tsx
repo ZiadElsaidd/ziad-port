@@ -16,9 +16,9 @@ const STEPS = [
   },
   {
     index: '02',
-    title: 'Architecture',
+    title: 'Design',
     duration: 'Week 1',
-    body: 'I design the system before writing a line of production code — data models, API contracts, infrastructure, and security boundaries. The result is software that scales cleanly instead of collapsing under its own weight.',
+    body: 'I design the system before writing a line of production code — data models, API contracts, deployment, and security boundaries. The result is software that scales cleanly instead of collapsing under its own weight.',
     tags: ['System Design', 'Data Models', 'Security'],
   },
   {
@@ -180,7 +180,7 @@ export function Process() {
             animate={sectionInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
           >
-            Hiring an architect shouldn’t feel like a gamble. Here’s the exact, predictable path
+            Hiring a developer shouldn’t feel like a gamble. Here’s the exact, predictable path
             from first conversation to a launched, maintainable product — no disappearing acts.
           </motion.p>
         </div>
