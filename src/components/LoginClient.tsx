@@ -19,6 +19,10 @@ export default function LoginClient() {
       body: JSON.stringify({ password: pw }),
     });
     if (res.ok) {
+      // Ensure cookie set; some environments block Set-Cookie in fetch responses.
+      if (!document.cookie.includes('site-auth')) {
+        document.cookie = `site-auth=1; Path=/; Max-Age=${60 * 60 * 24}`;
+      }
       router.push(next);
     } else {
       setErr('Incorrect password');

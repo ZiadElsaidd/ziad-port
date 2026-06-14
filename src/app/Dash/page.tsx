@@ -15,6 +15,10 @@ function Login({ onAuth }: { onAuth: () => void }) {
       body: JSON.stringify({ password: pw }),
     });
     if (res.ok) {
+      // ensure cookie is set (fallback for environments that ignore Set-Cookie on fetch)
+      if (typeof document !== 'undefined' && !document.cookie.includes('site-auth')) {
+        document.cookie = `site-auth=1; Path=/; Max-Age=${60 * 60 * 24}`;
+      }
       sessionStorage.setItem('dash-auth', '1');
       onAuth();
     } else {
