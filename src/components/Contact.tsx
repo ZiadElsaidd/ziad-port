@@ -372,7 +372,7 @@ export function Contact() {
     return () => window.removeEventListener('open-contact-modal', handler);
   }, []);
 
-  /* ── CYBERSAGE wordmark animation ── */
+  /* ── Vertex wordmark animation ── */
   useEffect(() => {
     const el = wordmarkRef.current;
     if (!el) return;
@@ -618,7 +618,7 @@ export function Contact() {
                 userSelect: 'none',
               }}
             >
-              CYBERSAGE
+              Vertex Software Solutions
             </span>
           </div>
 
@@ -633,8 +633,8 @@ export function Contact() {
                 transition={{ duration: 0.6, delay: 0.6, ease: EASE }}
               >
                 <Image
-                  src="/logo/logo_white.png"
-                  alt="Cybersage"
+                  src="/logo/verr.png"
+                  alt="Vertex Software Solutions"
                   width={130}
                   height={32}
                   className="opacity-40 hover:opacity-70 transition-opacity duration-300"
@@ -750,13 +750,13 @@ export function Contact() {
                 className="text-[0.55rem] tracking-[0.16em] uppercase text-white/18 font-medium text-center sm:text-left"
                 style={{ fontFamily: 'Satoshi, system-ui, sans-serif' }}
               >
-                © 2026 Ziad Elsaid · Cybersage
+                © 2026 Ziad Elsaid · Vertex Software Solutions
               </p>
               <p
                 className="text-[0.55rem] tracking-[0.14em] uppercase text-white/12 text-center sm:text-right"
                 style={{ fontFamily: 'Satoshi, system-ui, sans-serif' }}
               >
-                Designed &amp; Developed by Elsaid
+                Designed &amp; Developed by Ziad Elsaid
               </p>
             </motion.div>
           </div>  {/* end z-10 wrapper */}

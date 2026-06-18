@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     // Brand / name
     'Ziad Elsaid',
     'Full Stack Developer',
-    'Cybersage',
+    'Vertex Software Solutions',
     // Role
     'Full Stack Engineer',
     'Frontend Developer',
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: `${BASE_URL}/cybersage_og.png`,
+        url: `${BASE_URL}/logo/verr.png`,
         width: 1200,
         height: 630,
         alt: 'Ziad Elsaid — Full Stack Developer & Web Designer',
@@ -97,7 +97,7 @@ export const metadata: Metadata = {
     title: 'Ziad Elsaid | Full Stack Developer',
     description:
       '5+ years building production-grade web applications. Frontend · Backend · APIs. Available for hire worldwide.',
-    images: [`${BASE_URL}/cybersage_og.png`],
+    images: [`${BASE_URL}/logo/verr.png`],
   },
 
   robots: {
@@ -126,14 +126,14 @@ export const metadata: Metadata = {
 
   appleWebApp: {
     capable: true,
-    title: 'Cybersage',
+    title: 'Vertex Software Solutions',
     statusBarStyle: 'black-translucent',
   },
 
   other: {
     'theme-color': '#0A0A0A',
     'msapplication-TileColor': '#0A0A0A',
-    'application-name': 'Cybersage',
+    'application-name': 'Vertex Software Solutions',
   },
 };
 
@@ -148,11 +148,11 @@ const personSchema = {
   '@type': 'Person',
   '@id': `${BASE_URL}/#person`,
   name: 'Ziad Elsaid',
-  alternateName: ['Cybersage', 'Elsaid Ziad', 'Donrington'],
+  alternateName: ['Vertex Software Solutions', 'Elsaid Ziad', 'Donrington'],
   url: BASE_URL,
   image: {
     '@type': 'ImageObject',
-    url: `${BASE_URL}/cybersage_og.png`,
+    url: `${BASE_URL}/logo/verr.png`,
     width: 1200,
     height: 630,
   },
@@ -232,7 +232,7 @@ const websiteSchema = {
   '@type': 'WebSite',
   '@id': `${BASE_URL}/#website`,
   url: BASE_URL,
-  name: 'Cybersage — Ziad Elsaid',
+  name: 'Vertex Software Solutions — Ziad Elsaid',
   description:
     'Portfolio and professional profile of Ziad Elsaid — Full Stack Developer.',
   author: { '@id': `${BASE_URL}/#person` },

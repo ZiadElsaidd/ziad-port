@@ -19,7 +19,7 @@ const CLIENTS: { name: string; logo: string; scale?: number }[] = [
   { name: 'Chris Cleans', logo: '/logo/chris_con.png' },
   { name: 'Myra Keleher', logo: '/logo/myra_logo.webp' },
   { name: 'Tuan Tling', logo: '/logo/tuantling.png' },
-  { name: 'Cybersage', logo: '/logo/logo_white_horizontal.png' },
+  { name: 'Vertex Software Solutions', logo: '/logo/verr.png' },
   { name: 'TQL', logo: '/logo/TQL LOGO 2-01.png' },
 ];
 

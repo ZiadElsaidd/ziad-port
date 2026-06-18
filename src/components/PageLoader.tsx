@@ -127,8 +127,8 @@ export function PageLoader({ onDone }: { onDone: () => void }) {
         style={{ opacity: 0 }}
       >
         <Image
-          src="/logo/logo_white.png"
-          alt="Cybersage"
+          src="/logo/verr.png"
+          alt="Vertex Software Solutions"
           width={520}
           height={140}
           priority

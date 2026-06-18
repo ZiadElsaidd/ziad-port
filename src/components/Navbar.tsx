@@ -108,10 +108,10 @@ export function Navbar() {
           }}
         >
           {/* Logo — always left */}
-          <a href="#" className="flex items-center shrink-0 mr-3" aria-label="Cybersage">
+          <a href="#" className="flex items-center shrink-0 mr-3" aria-label="Vertex Software Solutions">
             <Image
-              src="/logo/logo_white_horizontal.png"
-              alt="Cybersage"
+              src="/logo/verr.png"
+              alt="Vertex Software Solutions"
               width={160}
               height={40}
               priority
@@ -157,8 +157,8 @@ export function Navbar() {
             }}
           >
             <Image
-              src="/logo/logo_white_horizontal.png"
-              alt="Cybersage"
+              src="/logo/verr.png"
+              alt="Vertex Software Solutions"
               width={140}
               height={36}
               priority

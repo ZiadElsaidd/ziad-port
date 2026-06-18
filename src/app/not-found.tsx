@@ -157,10 +157,10 @@ export default function NotFound() {
         transition={{ duration: 0.6, ease: EASE }}
       >
         {/* Logo */}
-        <Link href="/" aria-label="Cybersage">
+        <Link href="/" aria-label="Vertex Software Solutions">
           <Image
-            src="/logo/logo_white.png"
-            alt="Cybersage"
+            src="/logo/verr.png"
+            alt="Vertex Software Solutions"
             width={110}
             height={28}
             style={{ filter: 'invert(1)', opacity: 0.4 }}
@@ -308,7 +308,7 @@ export default function NotFound() {
           className="text-[0.5rem] tracking-[0.2em] uppercase text-black/15 font-medium pt-6"
           style={{ fontFamily: 'Satoshi, system-ui, sans-serif' }}
         >
-          © 2026 Ziad Elsaid · Cybersage
+          © 2026 Ziad Elsaid · Vertex Software Solutions
         </span>
         <span
           className="text-[0.5rem] tracking-[0.18em] uppercase text-black/12 font-medium pt-6"
@@ -353,7 +353,7 @@ export default function NotFound() {
             letterSpacing: '0.22em',
           }}
         >
-          Cybersage · 2026
+          Vertex Software Solutions · 2026
         </span>
         <div className="w-px h-12 bg-black/8" />
       </motion.div>

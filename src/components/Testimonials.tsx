@@ -54,7 +54,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: 'Executive Director',
     company: 'AmaniGo Travel',
     quote:
-      'Cybersage delivered a top-notch CMS for our travel agency. It’s user-friendly and has genuinely enhanced our client engagement.',
+      'Vertex Software Solutions delivered a top-notch CMS for our travel agency. It’s user-friendly and has genuinely enhanced our client engagement.',
     image: '/testimonial/amanigo.png',
     logo: '/logo/amanigo.png',
     logoScale: 2,

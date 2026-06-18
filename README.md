@@ -1,4 +1,4 @@
-# Cybersage — Personal Portfolio
+# Vertex Software Solutions — Personal Portfolio
 
 > **Live site:** [Ziad Portfolio](https://ziad-port.vercel.app)
 
@@ -51,7 +51,7 @@ This repository is **public for learning purposes only.**
 
 ### What you CANNOT do
 - Copy or reproduce the visual design, layout, or aesthetic as your own portfolio or commercial product
-- Use the **Cybersage** name, logo, wordmark, or any brand asset
+- Use the **Vertex Software Solutions** name, logo, wordmark, or any brand asset
 - Deploy a copy of this site and represent it as your own original work
 
 The source code is licensed under **MIT** (see [LICENSE](./LICENSE)) — which governs the code logic. The design, brand assets, and overall visual identity are **all rights reserved** and are explicitly excluded from that license.

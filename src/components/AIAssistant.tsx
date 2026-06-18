@@ -359,7 +359,7 @@ export function AIAssistant() {
                           margin: 0,
                         }}
                       >
-                        Cybersage AI
+                        Vertex Software Solutions AI Assistant
                       </p>
                       {/* Live dot */}
                       <span style={{ position: 'relative', display: 'inline-flex', width: 5, height: 5 }}>

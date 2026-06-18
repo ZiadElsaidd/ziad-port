@@ -27,8 +27,8 @@ function readLogoB64(filename: string): string {
   }
 }
 
-const LOGO_HORIZONTAL = readLogoB64('cybersage_horizontal.png');
-const LOGO_ICON = readLogoB64('cybersage_icon.png');
+const LOGO_HORIZONTAL = readLogoB64('verr.png');
+const LOGO_ICON = readLogoB64('verr.png');
 
 function emailTemplate({ name, email, message }: { name: string; email: string; message: string }) {
   return `<!DOCTYPE html>
@@ -58,7 +58,7 @@ function emailTemplate({ name, email, message }: { name: string; email: string; 
                   <td>
                     <img
                       src="${LOGO_HORIZONTAL}"
-                      alt="Cybersage"
+                      alt="Vertex Software Solutions"
                       width="140"
                       style="display:block; height:auto;"
                     />
