@@ -127,7 +127,7 @@ export function PageLoader({ onDone }: { onDone: () => void }) {
         style={{ opacity: 0 }}
       >
         <Image
-          src="/logo/verr.png"
+          src="/public/logo/verr.png"
           alt="Vertex Software Solutions"
           width={520}
           height={140}
