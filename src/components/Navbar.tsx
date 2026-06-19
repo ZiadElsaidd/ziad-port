@@ -110,7 +110,7 @@ export function Navbar() {
           {/* Logo — always left */}
           <a href="#" className="flex items-center shrink-0 mr-3" aria-label="Vertex Software Solutions">
             <Image
-              src="/public/logo/verr.png"
+              src="/logo/verr.png"
               alt="Vertex Software Solutions"
               width={160}
               height={40}
@@ -157,7 +157,7 @@ export function Navbar() {
             }}
           >
             <Image
-              src="/public/logo/verr.png"
+              src="/logo/verr.png"
               alt="Vertex Software Solutions"
               width={140}
               height={36}

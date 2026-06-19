@@ -27,8 +27,8 @@ function readLogoB64(filename: string): string {
   }
 }
 
-const LOGO_HORIZONTAL = readLogoB64('/public/logo/verr.png');
-const LOGO_ICON = readLogoB64('/public/logo/verr.png');
+const LOGO_HORIZONTAL = readLogoB64('logo/verr.png');
+const LOGO_ICON = readLogoB64('logo/verr.png');
 
 function emailTemplate({ name, email, message }: { name: string; email: string; message: string }) {
   return `<!DOCTYPE html>

@@ -106,7 +106,7 @@ export function PageLoader({ onDone }: { onDone: () => void }) {
   }, [onDone]);
 
   return (
-    <div className="fixed inset-0 z-[9999] overflow-hidden">
+    <div className="fixed inset-0 z-9999 overflow-hidden">
 
       {/* ── 5 vertical panels ──────────────────────────────────────────────── */}
       <div className="absolute inset-0 flex">
@@ -127,7 +127,7 @@ export function PageLoader({ onDone }: { onDone: () => void }) {
         style={{ opacity: 0 }}
       >
         <Image
-          src="/public/logo/verr.png"
+          src="/logo/verr.png"
           alt="Vertex Software Solutions"
           width={520}
           height={140}

@@ -633,7 +633,7 @@ export function Contact() {
                 transition={{ duration: 0.6, delay: 0.6, ease: EASE }}
               >
                 <Image
-                  src="/public/logo/verr.png"
+                  src="logo/verr.png"
                   alt="Vertex Software Solutions"
                   width={130}
                   height={32}

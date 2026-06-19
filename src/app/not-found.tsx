@@ -159,7 +159,7 @@ export default function NotFound() {
         {/* Logo */}
         <Link href="/" aria-label="Vertex Software Solutions">
           <Image
-            src="/public/logo/verr.png"
+            src="logo/verr.png"
             alt="Vertex Software Solutions"
             width={110}
             height={28}

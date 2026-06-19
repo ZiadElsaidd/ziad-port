@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: `${BASE_URL}/public/logo/verr.png`,
+        url: `${BASE_URL}/logo/verr.png`,
         width: 1200,
         height: 630,
         alt: 'Ziad Elsaid — Full Stack Developer & Web Designer',
@@ -97,7 +97,7 @@ export const metadata: Metadata = {
     title: 'Ziad Elsaid | Full Stack Developer',
     description:
       '5+ years building production-grade web applications. Frontend · Backend · APIs. Available for hire worldwide.',
-    images: [`${BASE_URL}/public/logo/verr.png`],
+    images: [`${BASE_URL}/logo/verr.png`],
   },
 
   robots: {
@@ -152,7 +152,7 @@ const personSchema = {
   url: BASE_URL,
   image: {
     '@type': 'ImageObject',
-    url: `${BASE_URL}/public/logo/verr.png`,
+    url: `${BASE_URL}/logo/verr.png`,
     width: 1200,
     height: 630,
   },
